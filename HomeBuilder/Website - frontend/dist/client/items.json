@@ -1,0 +1,18 @@
+{
+    "Wall": {
+      "itemName": "Wall",
+      "materials": "Cement and Iron Rod",
+      "baseCost": 100
+    },
+    "Window": {
+      "itemName": "Window",
+      "materials": "Glass and Aluminum",
+      "baseCost": 50
+    },
+    "Floor": {
+      "itemName": "Floor",
+      "materials": "Wood and Tiles",
+      "baseCost": 200
+    }
+  }
+  
