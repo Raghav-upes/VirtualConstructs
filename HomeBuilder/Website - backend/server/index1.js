@@ -1,39 +1,47 @@
 const WebSocket = require('ws');
 const http = require('http');
 const axios = require('axios');
-
+const fs = require("fs");
 const server = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
   res.end('WebSocket server is running\n');
 });
 
-server.listen(8081, () => {
+server.listen(3000, () => {
   console.log('HTTP server listening on port 8081');
 });
 
-const wss = new WebSocket.Server({ server });
+const ws = new WebSocket.Server({ server });
 
-wss.on('connection', function connection(ws) {
-  // Send the client's global IP address when a client connects
-  getGlobalIPAddress()
-    .then((publicIPAddress) => {
-      ws.send('Your Global IP Address: ' + publicIPAddress);
-    })
-    .catch((error) => {
-      console.error('Error sending IP address:', error.message);
+ws.on('connection',  (clientWs, req) =>{
+    clientWs.on("message", (data) => {
+      console.log("Received GLTF model data");
+
+      // Assuming data is a binary buffer containing the GLTF model
+      // You can save it to a file, process it, or perform any other desired actions
+      // For example, save the model to a file
+      fs.writeFileSync("../../Website\ -\ frontend/dist/client/received_model.gltf", data);
+
+      // Respond to the client if needed
+      clientWs.send("Model received and saved on the server");
     });
 
+/*      fs.copyFile("received_model.gltf", destinationFolderPath + 'received_model.gltf', (err) => {
+  console.log(`File saved to ${destinationFolderPath}received_model.gltf`);
+});*/
   ws.on('message', (message) => {
     console.log('Received message: ' + message);
 
     // Broadcast the message to all connected clients
-    wss.clients.forEach((client) => {
+    ws.clients.forEach((client) => {
       if (client !== ws && client.readyState === WebSocket.OPEN) {
         client.send('Broadcast: ' + message);
       }
     });
   });
 });
+
+
 
 const getGlobalIPAddress = async () => {
   try {

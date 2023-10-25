@@ -6,9 +6,9 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 const scene = new THREE.Scene()
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-camera.position.x = 10
-camera.position.y = 60
-camera.position.z = -110
+camera.position.x = -10
+camera.position.y = 10
+//camera.position.z = -110
 
 
 // Add ambient lighting
@@ -56,7 +56,7 @@ let totalCostCell = document.querySelector('#totalCost')  as any;
 
 
 const loader = new GLTFLoader();
-loader.load('./house.gltf', (gltf) => {
+loader.load('./received_model.gltf', (gltf) => {
   // Get the scene and traverse the child nodes
   const sceneo = gltf.scene;
   sceneo.traverse(function (child) {
@@ -64,7 +64,7 @@ loader.load('./house.gltf', (gltf) => {
       updateTableWithItemDetails(child.name);
     }
   });
-  scene.add(gltf.scene);
+  //scene.add(gltf.scene);
 });
 
 function updateTableWithItemDetails(childName: String) {

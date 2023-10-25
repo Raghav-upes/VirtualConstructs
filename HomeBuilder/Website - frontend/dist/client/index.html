@@ -9,6 +9,12 @@
                 overflow: hidden;
                 margin: 0px;
             }
+            model-viewer{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
         </style>
     </head>
 
@@ -52,7 +58,14 @@ tr:nth-child(even) {
       </tr>
     </tbody>
 </table>
+<script type="module" src="./model-viewer.js"></script>
 
+<!-- Use it like any other HTML element -->
+<model-viewer
+    src="./received_model.gltf" ar 
+   shadow-intensity="0.05" camera-controls
+    touch-action="pan-y"></model-viewer>
+    
 
         <script type="module" src="bundle.js"></script>
     </body>

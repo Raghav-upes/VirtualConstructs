@@ -1,37 +1,44 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const { Server } = require("socket.io");
+const express = require("express");
 const http = require("http");
-const { join } = require('path'); // Import the join function from the path module
+const WebSocket = require("ws");
+const fs = require("fs");
 
-// Create express app
 const app = express();
 const server = http.createServer(app);
 
-// Connect to MongoDB database
-mongoose
-    .connect(
-        "mongodb+srv://sih123:sih123@cluster0.qklglcz.mongodb.net/?retryWrites=true&w=majority",
-        { useNewUrlParser: true }
-    )
-    .then(() => console.log("MongoDB connected"))
-    .catch((err) => console.log(err));
+// Serve static files, like your HTML page
+app.use(express.static(__dirname));
 
-// Define routes
-app.get('/', (req, res) => {
-  // Use join to specify the path to your HTML file
-  res.sendFile(join(__dirname, 'index.html'));
+const ws = new WebSocket.Server({ server });
+
+ws.on("connection", (clientWs, req) => {
+  const origin = req.headers.origin;
+
+  if (origin === "http://localhost:3000") {
+    // The connection is allowed
+    console.log("A client connected");
+
+    clientWs.on("message", (data) => {
+      console.log("Received GLTF model data");
+
+      // Assuming data is a binary buffer containing the GLTF model
+      // You can save it to a file, process it, or perform any other desired actions
+      // For example, save the model to a file
+      fs.writeFileSync("received_model.gltf", data);
+
+      // Respond to the client if needed
+      clientWs.send("Model received and saved on the server");
+    });
+
+    clientWs.on("close", () => {
+      console.log("Client disconnected");
+    });
+  } else {
+    // Reject the connection
+    clientWs.close();
+  }
 });
 
-// Start server
-const port = 3000;
-server.listen(port, () => console.log(`Server started on port ${port}`));
-
-// Socket.io integration
-const io = new Server(server);
-io.on("connection", (socket) => {
-    console.log("A user connected");
-    socket.on("disconnect", () => {
-        console.log("User disconnected");
-    });
+server.listen(3000, () => {
+  console.log("Server started on port 3000");
 });
