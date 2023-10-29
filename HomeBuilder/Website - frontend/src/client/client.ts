@@ -92,7 +92,6 @@ function updateSidebarWithItemDetails(childName: String) {
           }
         }
 
-        // If there is no existing card with the same information, create a new card and append it to the sidebar content element
         if (!existingCard) {
           const newItemElement = document.createElement('div');
           newItemElement.classList.add('card');
@@ -101,22 +100,18 @@ function updateSidebarWithItemDetails(childName: String) {
           itemNameElement.textContent = itemDetails.itemName;
           newItemElement.appendChild(itemNameElement);
 
-          // add the item description
           const descriptionElement = document.createElement('p');
           descriptionElement.textContent = itemDetails.description;
           newItemElement.appendChild(descriptionElement);
 
-          // add dimensions
           const dimensionElement = document.createElement('p');
           dimensionElement.textContent = itemDetails.dimensions;
           newItemElement.appendChild(dimensionElement);
 
-          // add cost
           const costElement = document.createElement('p');
           costElement.textContent = itemDetails.baseCost;
           newItemElement.appendChild(costElement);
 
-          // Append the new item element to the sidebar content element
           sidebarContent.appendChild(newItemElement);
         }
       }

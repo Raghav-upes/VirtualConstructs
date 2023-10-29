@@ -1,0 +1,4 @@
+node_modules
+Website-backend/server/node_modules
+Website-frontend/node_modules
+HomeBuilder/Website - backend/package-lock.json
