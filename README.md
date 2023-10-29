@@ -3,7 +3,7 @@
 
 PS Code: SIH1428​
 
-<b>Problem Statement</b>
+<b>Problem Statement</b><br>
 AR/VR based application which helps visualize the complete house virtually at an early stage, which can help in cost estimation, planning completion of the house in time.​
 
 Team Name: Virtual Constructs
