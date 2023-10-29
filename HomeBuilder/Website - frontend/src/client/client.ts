@@ -46,11 +46,6 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 const controls = new OrbitControls(camera, renderer.domElement);
 
-// Reference to the table cells
-let numberOfItemCell = document.querySelector('#numberOfItem') as any;
-let itemNameCell = document.querySelector('#itemName')  as any;
-let materialsCell = document.querySelector('#materials')  as any;
-let totalCostCell = document.querySelector('#totalCost')  as any;
 
 
 
@@ -61,13 +56,14 @@ loader.load('./received_model.gltf', (gltf) => {
   const sceneo = gltf.scene;
   sceneo.traverse(function (child) {
     if (child.name) {
-      updateTableWithItemDetails(child.name);
+      console.log(child.name);
+      updateSidebarWithItemDetails(child.name);
     }
   });
   //scene.add(gltf.scene);
 });
 
-function updateTableWithItemDetails(childName: String) {
+function updateSidebarWithItemDetails(childName: String) {
   // Load and parse the item details JSON file
   fetch('items.json')
     .then((response) => response.json())
@@ -80,55 +76,48 @@ function updateTableWithItemDetails(childName: String) {
         // Item details found
         const itemDetails = data[normalizedChildName];
 
-        // Find the table body
-        const tableBody = document.querySelector('#tbody');
+        // Find the sidebar content element
+        const sidebarContent = document.querySelector('.itemInfo') as any;
 
+        // Check if there is already a card in the sidebar with the same information as the new item
+        let existingCard = null;
 
-        // Check if an existing row with the same item name already exists in the table
-        let existingRow = null;
+        for (const card of sidebarContent.querySelectorAll('.card')) {
+          const itemNameElement = card.querySelector('h2');
+          const costElement = card.querySelector('p:last-child');
 
-        for (const row of (tableBody as any).querySelectorAll('tr')) {
-      
-          const itemNameCell = row.querySelector('td:nth-child(2)');
-          console.log(itemNameCell);
-          if(itemNameCell)
-          if (itemNameCell.textContent === itemDetails.itemName) {
-            existingRow = row;
+          if (itemNameElement.textContent === itemDetails.itemName && costElement.textContent === itemDetails.baseCost) {
+            existingCard = card;
             break;
           }
         }
-        if (existingRow) {
-     
-          // Item already exists in the table, update the count and total cost
-          const numberOfItemCell = (existingRow as any).querySelector('td:nth-child(1)');
-          const totalCostCell = (existingRow as any).querySelector('td:nth-child(4)');
-          const currentCount = parseInt(numberOfItemCell.textContent, 10);
-          const newCount = currentCount + 1;
-          numberOfItemCell.textContent = newCount;
-          totalCostCell.textContent = `$${newCount * itemDetails.baseCost}`;
-        } else {
-          // Item doesn't exist in the table, create a new row
-          const newRow = document.createElement('tr');
 
-          // Add cells to the new row
-          const numberOfItemCell = document.createElement('td');
-          numberOfItemCell.textContent = '1'; // You have 1 of this item
-          newRow.appendChild(numberOfItemCell);
+        // If there is no existing card with the same information, create a new card and append it to the sidebar content element
+        if (!existingCard) {
+          const newItemElement = document.createElement('div');
+          newItemElement.classList.add('card');
 
-          const itemNameCell = document.createElement('td');
-          itemNameCell.textContent = itemDetails.itemName;
-          newRow.appendChild(itemNameCell);
+          const itemNameElement = document.createElement('h2');
+          itemNameElement.textContent = itemDetails.itemName;
+          newItemElement.appendChild(itemNameElement);
 
-          const materialsCell = document.createElement('td');
-          materialsCell.textContent = itemDetails.materials;
-          newRow.appendChild(materialsCell);
+          // add the item description
+          const descriptionElement = document.createElement('p');
+          descriptionElement.textContent = itemDetails.description;
+          newItemElement.appendChild(descriptionElement);
 
-          const totalCostCell = document.createElement('td');
-          totalCostCell.textContent = `$${itemDetails.baseCost}`;
-          newRow.appendChild(totalCostCell);
+          // add dimensions
+          const dimensionElement = document.createElement('p');
+          dimensionElement.textContent = itemDetails.dimensions;
+          newItemElement.appendChild(dimensionElement);
 
-          // Append the new row to the table body
-          (tableBody as any).appendChild(newRow);
+          // add cost
+          const costElement = document.createElement('p');
+          costElement.textContent = itemDetails.baseCost;
+          newItemElement.appendChild(costElement);
+
+          // Append the new item element to the sidebar content element
+          sidebarContent.appendChild(newItemElement);
         }
       }
     })

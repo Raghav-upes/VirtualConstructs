@@ -5,68 +5,151 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Three.js TypeScript Tutorials by Sean Bradley</title>
         <style>
-            body {
-                overflow: hidden;
-                margin: 0px;
-            }
-            model-viewer{
+
+body{
+
+  margin: 0;
+  padding: 0;
+}
+
+  model-viewer{
     height: 100%;
     width: 100%;
     position: absolute;
 }
 
-        </style>
-    </head>
+  .sidebar {
+    z-index: 999;
+    height: 100vh;
+    width: 300px;
+    background-color: #3498db;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    color: #fff;
+  }
 
-    <body>
+  .sidebar-content {
+    max-height: 100%;
+    overflow-y: scroll;
+  }
 
-        <!DOCTYPE html>
-<html>
-<head>
-<style>
-table {
-  width: 80%; 
-  margin: 50px auto;
-  border-collapse: collapse;
-}
+  .sidebar-content::-webkit-scrollbar {
+    display: none;
+  }
 
-th, td {
-  padding: 8px;
-  text-align: left; 
-}
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .sidebar-content {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 
-th {
-  background-color: #607d8b;
-  color: #ffffff;
-}
+  .sidebar h1 {
+    font-size: 24px;
+    text-align: center;
+  }
 
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-</style>
+  .card {
+    background-color: #fff;
+    color: #333;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+  }
+
+  .card:hover {
+    background-color: #f5f5f5;
+  }
+
+  .card h2 {
+    font-size: 18px;
+    margin: 0;
+  }
+
+  .card p {
+    margin: 5px 0;
+  }
+
+  .bill-dialog {
+      background-color: #00425A; /* Changed to a darker blue */
+    color: #fff;
+padding: 22px;
+padding-left: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .bill-dialog h2 {
+    font-size: 18px;
+    margin: 0;
+    margin-bottom: 12px;
+  }
+
+  .bill-dialog p {
+    margin: 8px 0;
+  }
+      </style>
+ 
 </head>
 
 <body>
 
-<table>
-    <tbody id="tbody">
-    <tr>
-        <th>Number of item</th>
-        <th>Item Name</th>
-        <th>Materials</th>
-        <th>Total Cost</th>
-      </tr>
-    </tbody>
-</table>
-<script type="module" src="./model-viewer.js"></script>
 
-<!-- Use it like any other HTML element -->
+  <div class="sidebar">
+    <h1>Cost Estimation</h1>
+
+    <div class="sidebar-content">
+      <div class="itemInfo">
+
+      </div>
+
+      <!-- Walls Section 
+      <div class="card">
+        <h2> Walls</h2>
+        <p>Cement bricks, smooth plaster</p>
+        <p>10 ft height, 5 in thickness</p>
+        <p>Cost per sq ft: $15</p>
+      </div>-->
+
+      <!-- 
+      <div class="card">
+        <h2> Doors</h2>
+        <p>Solid wood doors with glass panel</p>
+        <p>3 ft x 7 ft</p>
+        <p>Cost per door: $100</p>
+      </div>Doors Section -->
+
+      <!-- Total Bill -->
+      <div class="bill-dialog">
+
+        <h2>Total Bill</h2>
+      
+        <p>Resources Cost: ₹1,30,500 </p>
+      
+        <p>Paint Cost: ₹2,20,000</p>
+        <p>Electrical Wiring Cost: ₹1,40,000</p>
+        <p style="margin-bottom: 15px;">Plumbing Cost: ₹80,000 </p>
+        <hr>
+        <p><strong>Total Cost: ₹5,70,500</strong></p>
+      
+      </div>
+
+    </div>
+  </div>
+
+
+<script type="module" src="./model-viewer.js"></script>
 <model-viewer
     src="./received_model.gltf" ar 
    shadow-intensity="0.05" camera-controls
     touch-action="pan-y"></model-viewer>
     
 
-        <script type="module" src="bundle.js"></script>
+      <script type="module" src="bundle.js"></script> 
     </body>
 </html>
+
+
+
