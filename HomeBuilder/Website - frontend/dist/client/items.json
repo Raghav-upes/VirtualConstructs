@@ -1,18 +1,30 @@
 {
-    "Wall": {
-      "itemName": "Wall",
-      "materials": "Cement and Iron Rod",
-      "baseCost": 100
-    },
-    "Window": {
-      "itemName": "Window",
-      "materials": "Glass and Aluminum",
-      "baseCost": 50
-    },
-    "Floor": {
-      "itemName": "Floor",
-      "materials": "Wood and Tiles",
-      "baseCost": 200
-    }
+  "Wall": {
+    "itemName": "Wall",
+    "materials": "Cement and Iron Rod",
+    "baseCost": "Cost per sq ft: ₹110",
+    "description": "Solid cement walls with iron rod reinforcement",
+    "dimensions": "10 ft height, 15 ft width, 5 in thickness"
+  },
+  "Window": {
+    "itemName": "Window",
+    "materials": "Glass and Aluminum",
+    "baseCost": "Cost per item: ₹8000",
+    "description": "Aluminum-framed glass window",
+    "dimensions": "3 ft height, 4 ft width"
+  },
+  "Door": {
+    "itemName": "Door",
+    "materials": "Wood and Hinges",
+    "baseCost": "Cost per item: ₹6000",
+    "description": "Solid wood doors with decorative hinges",
+    "dimensions": "7 ft height, 3 ft width"
+  },
+  "Chair": {
+    "itemName": "Chair",
+    "materials": "Wood and Fabric",
+    "baseCost": "Cost per item: ₹1500",
+    "description": "Comfortable wooden chair with fabric upholstery",
+    "dimensions": "Varies by chair type"
   }
-  
+}

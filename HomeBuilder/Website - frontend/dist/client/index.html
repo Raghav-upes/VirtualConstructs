@@ -16,6 +16,7 @@ body{
     height: 100%;
     width: 100%;
     position: absolute;
+    
 }
 
   .sidebar {
@@ -143,8 +144,8 @@ padding-left: 15px;
 <script type="module" src="./model-viewer.js"></script>
 <model-viewer
     src="./received_model.gltf" ar 
-   shadow-intensity="0.05" camera-controls
-    touch-action="pan-y"></model-viewer>
+   shadow-intensity="0.05" 
+    touch-action="pan-y"   camera-controls  camera-orbit="115deg 85deg -1m" camera-target = '-1m -1.3m 0m' ></model-viewer>
     
 
       <script type="module" src="bundle.js"></script> 
